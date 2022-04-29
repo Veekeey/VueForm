@@ -1,6 +1,7 @@
 <template>
 <div class="subform">
 <h1>TorieM Events Survey Form!</h1>
+<p v-if="success" class="success">{{success}}</p>
   <form @submit.prevent="handleSubmit">
     <div class="Fname">
       <label>First Name:</label>
@@ -73,6 +74,7 @@ export default {
       },
       
       phoneError: ' ',
+      success: ''
     }
   },
 
@@ -85,14 +87,25 @@ export default {
       }else {
         this.phoneError = '';
         localStorage.setItem(`${this.formData.email}`, JSON.stringify(this.formData))
+
+          this.success = "Response submitted successfully!"
+          
+
+        this.formData.firstName = ''
+        this.formData.lastName = ''
+        this.formData.email = ''
+        this.formData.phone = ''
+        this.formData.comment = ''
+        this.formData.rating = ''
+        this.formData.gender = ''
+
+        setTimeout(()=>{
+          this.success = ''
+          }, 10000)
       }
-      this.formData.firstName = ''
-      this.formData.lastName = ''
-      this.formData.email = ''
-      this.formData.phone = ''
-      this.formData.comment = ''
-      this.formData.rating = ''
-      this.formData.gender = ''
+      
+
+
     }
   }
 }
@@ -150,5 +163,11 @@ button, .E-input, .F-input, .L-input, .P-input, .R-input, #comment {
   margin-left: 6rem;
   font-size: 12px;
   color: red;
+}
+
+.success {
+  color: green;
+  font-style: italic;
+  font-size: 20px;
 }
 </style>
